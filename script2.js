@@ -1,6 +1,6 @@
 let lastrenderTime = 0
 import {update as updateSnake, draw as drawSnake, SNAKE_SPEED} from "./snake.js"
-
+const gameBoard = document.getElementById("game-board")
 
 
 
@@ -21,13 +21,12 @@ function main(currentTime)
 
 function update()
 {
-    updateSnake()
- 
+   
 }
 
 function draw()
 {
-    drawSnake()
+    drawSnake(gameBoard)
 
 }
 
