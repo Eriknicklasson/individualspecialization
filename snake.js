@@ -12,6 +12,7 @@ let newsegments = 0;
 
 export function update()
 {
+    addSegments()
     const inputDirection = getInputDirection()
     for(let i = snakeBody.length - 2; i >= 0; i--)
     {
@@ -40,14 +41,33 @@ export function expandSnake(amount)
     newsegments += amount
 }
 
-export function onSnake(position)
-{
-    return snakeBody.some(segment => {
+export function onSnake(position, {ignoreHead = false} = {}) {
+    return snakeBody.some((segment, index) => {
+        if (ignoreHead && index === 0) return false
         return equalPositions(segment, position)
     })
+}
+
+export function getSnakeHead(){
+    return snakeBody[0]
+}
+
+export function snakeIntersection(){
+    return onSnake(snakeBody[0], {ignoreHead: true})
 }
 
 function equalPositions(pos1, pos2)
 {
     return pos1.x === pos2.x && pos1.y === pos2.y
+}
+
+
+function addSegments(){
+
+    for (let i = 0; i < newsegments; i++){
+        snakeBody.push({...snakeBody[snakeBody.length -1 ]})
+    }
+
+    newsegments = 0;
+
 }
